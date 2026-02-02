@@ -22,3 +22,10 @@ class BookRepositoryProtocol(Protocol):
 
     def update_book(self, book_id:str, updated_fields_dict:dict) -> str:
         ...
+
+        
+    def check_out_book(self, book_id: str) -> bool:
+        ...
+
+    def check_in_book(self, book_id: str) -> bool:
+        ...

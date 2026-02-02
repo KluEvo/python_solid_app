@@ -13,9 +13,9 @@ class CheckoutRecord:
     def check_in(self):
         if self.checked_in_at is not None:
             raise Exception("Book already checked in.")
-        self.checked_in_at = datetime.now(datetime.timezone.utc)
+        self.checked_in_at = datetime.now()
 
     def check_out(self):
         if self.checked_out_at is not None:
             raise Exception("Book already checked out.")
-        self.checked_out_at = datetime.now(datetime.timezone.utc)
+        self.checked_out_at = datetime.now()

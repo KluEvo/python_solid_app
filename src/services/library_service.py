@@ -18,10 +18,13 @@ class LibraryService:
         if not isinstance(book_id, str):
             raise TypeError('Expected str, got something else.')
         
-        self.book_repo.check_out(book_id)
+        self.book_repo.check_out_book(book_id)
                 
-        record = CheckoutRecord(book_id=book_id)
+        record = CheckoutRecord(book_id)
         record.check_out()
+
+        
+        print(self.book_repo.find_book_by_id(book_id))
         
         self.checkout_repo.add_record(record)
 
@@ -31,7 +34,7 @@ class LibraryService:
         if not isinstance(book_id, str):
             raise TypeError('Expected str, got something else.')
         
-        self.book_repo.check_in(book_id)
+        self.book_repo.check_in_book(book_id)
         
         record = CheckoutRecord(book_id=book_id)
         record.check_in()

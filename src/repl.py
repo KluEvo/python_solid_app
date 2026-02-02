@@ -160,6 +160,7 @@ class BookREPL:
             title = input('Title: ')
             author = input('Author: ')
             book_id = self.get_exact_book(title, author)
+            print(self.book_svc.find_book_by_id(book_id))
 
             record = self.lib_svc.check_in_book(book_id)
 
@@ -270,7 +271,7 @@ class BookREPL:
             print(f'An unexpected error has occurred in get_most_popular_genre_2026: {e}')
 
 if __name__ == '__main__':
-    generate_books()
+    # generate_books()
     book_repo = BookRepository('books.json')
     book_service = BookService(book_repo)
     book_analytics_service = BookAnalyticsService()
