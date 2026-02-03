@@ -25,3 +25,17 @@ class CheckoutRepository:
         for key, value in updated_fields.items():
             setattr(record, key, value)
         return record_id
+    
+
+    def check_out(self, book_id: str) -> CheckoutRecord:
+        record = CheckoutRecord(book_id)
+        record.check_out()
+        self.add_record(record)
+        return record
+
+    def check_in(self, book_id: str) -> CheckoutRecord:
+        record = self.get_active_record_for_book(book_id)
+        record.check_in()
+        self.records[record.record_id] = record
+
+        return record

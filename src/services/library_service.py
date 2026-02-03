@@ -17,30 +17,27 @@ class LibraryService:
     def check_out_book(self, book_id: str) -> CheckoutRecord:
         if not isinstance(book_id, str):
             raise TypeError('Expected str, got something else.')
+        elif self.checkout_repo.get_active_record_for_book(book_id):
+            raise Exception('Book already checked out.')
         
         self.book_repo.check_out_book(book_id)
                 
-        record = CheckoutRecord(book_id)
-        record.check_out()
-
         
-        print(self.book_repo.find_book_by_id(book_id))
-        
-        self.checkout_repo.add_record(record)
+        record = self.checkout_repo.check_out(book_id)
 
         return record
 
     def check_in_book(self, book_id: str) -> CheckoutRecord:
         if not isinstance(book_id, str):
             raise TypeError('Expected str, got something else.')
+        elif not self.checkout_repo.get_active_record_for_book(book_id):
+            raise Exception('Book is has not been checked out.')
         
         self.book_repo.check_in_book(book_id)
         
-        record = CheckoutRecord(book_id=book_id)
-        record.check_in()
+        record = self.checkout_repo.check_in(book_id)
+                
         
-        self.checkout_repo.add_record(record)
-
         return record
         
     def get_checkout_history(self, book_id: str) -> list[CheckoutRecord]:
