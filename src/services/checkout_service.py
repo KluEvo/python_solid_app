@@ -1,9 +1,7 @@
 # library_service.py
-from src.domain.book import Book
 from src.domain.checkout_record import CheckoutRecord
 from src.repositories.book_repository_protocol import BookRepositoryProtocol
 from src.repositories.checkout_repository_protocol import CheckoutRepositoryProtocol
-from datetime import datetime
 
 class CheckoutService:
     def __init__(
