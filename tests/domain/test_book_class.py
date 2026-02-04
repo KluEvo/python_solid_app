@@ -2,7 +2,7 @@ import pytest
 import uuid
 from dataclasses import asdict
 from datetime import datetime
-from src.domain.book import Book 
+from src.domain.book import Book, BookError
 
 def test_book_creation_with_required_fields():
     book = Book(title="Test", author="Arthur Scribe")
@@ -52,7 +52,7 @@ def test_check_out_success():
 
 def test_check_out_failure():
     book = Book(title="Test", author="Arthur Scribe", available=False)
-    with pytest.raises(Exception, match="Book is already checked out."):
+    with pytest.raises(BookError, match="Book is already checked out."):
         book.check_out()
 
 def test_check_in_success():
@@ -62,7 +62,7 @@ def test_check_in_success():
 
 def test_check_in_failure():
     book = Book(title="Test", author="Arthur Scribe", available=True)
-    with pytest.raises(Exception, match="Book is already available."):
+    with pytest.raises(BookError, match="Book is already available."):
         book.check_in()
 
 def test_from_dict():

@@ -2,6 +2,12 @@ from dataclasses import dataclass, field
 from typing import Optional
 import uuid
 
+class BookError(Exception):
+   """Custom Book exception."""
+   def __init__(self, message):
+       self.message = message
+       super().__init__(self.message)
+
 @dataclass
 class Book:
     title: str
@@ -23,12 +29,12 @@ class Book:
 
     def check_out(self):
         if not self.available:
-            raise Exception('Book is already checked out.')
+            raise BookError('Book is already checked out.')
         self.available = False
 
     def check_in(self):
         if self.available:
-            raise Exception('Book is already available.')
+            raise BookError('Book is already available.')
         self.available = True
 
     @classmethod

@@ -54,6 +54,17 @@ def test_find_book_by_name(monkeypatch, mock_json_file):
     assert len(result) == 1
     assert result[0].title == "Book 1"
 
+
+def test_find_book_by_name_failure(monkeypatch, mock_json_file):
+    monkeypatch.setattr(
+        book_repository,
+        "Book",
+        MockBook
+    )
+    repo = book_repository.BookRepository(mock_json_file)
+    result = repo.find_book_by_name("Book 20")
+    assert len(result) == 0
+
 def test_find_book_by_name_and_author(monkeypatch, mock_json_file):
     monkeypatch.setattr(
         book_repository,
@@ -64,6 +75,16 @@ def test_find_book_by_name_and_author(monkeypatch, mock_json_file):
     result = repo.find_book_by_name_and_author("Book 1", "Author 1")
     assert len(result) == 1
     assert result[0].title == "Book 1"
+
+def test_find_book_by_name_and_author_failure(monkeypatch, mock_json_file):
+    monkeypatch.setattr(
+        book_repository,
+        "Book",
+        MockBook
+    )
+    repo = book_repository.BookRepository(mock_json_file)
+    result = repo.find_book_by_name_and_author("Book 20", "Author 20")
+    assert len(result) == 0
 
 def test_find_book_by_id(monkeypatch, mock_json_file):
     monkeypatch.setattr(

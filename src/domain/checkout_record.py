@@ -1,7 +1,12 @@
-# checkout_record.py
 from dataclasses import dataclass, field
 from datetime import datetime
 import uuid
+
+class CheckoutError(Exception):
+   """Custom Book exception."""
+   def __init__(self, message):
+       self.message = message
+       super().__init__(self.message)
 
 @dataclass
 class CheckoutRecord:
@@ -12,10 +17,10 @@ class CheckoutRecord:
 
     def check_in(self):
         if self.checked_in_at is not None:
-            raise Exception("Book already checked in.")
+            raise CheckoutError("Book already checked in.")
         self.checked_in_at = datetime.now()
 
     def check_out(self):
         if self.checked_out_at is not None:
-            raise Exception("Book already checked out.")
+            raise CheckoutError("Book already checked out.")
         self.checked_out_at = datetime.now()
