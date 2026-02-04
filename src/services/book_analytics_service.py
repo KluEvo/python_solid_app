@@ -146,19 +146,19 @@ class BookAnalyticsService:
                 else:
                     genre_counts[book.genre] = 1
 
-        # Return the genre with the highest number of checkouts
         return max(genre_counts, key=genre_counts.get)
 
     def _books_to_df(self, books: list[Book]) -> pd.DataFrame:
         df = pd.DataFrame([b.to_dict() for b in books])
 
-        # ---- Clean data ----
         df = df.dropna(subset=["genre", "average_rating", "ratings_count"])
         df = df[df["ratings_count"] > 0]
         df = df[df["price_usd"] > 0]
-        df["release_year"] = pd.to_numeric(df["release_year"], errors="coerce")
+        df["publication_year"] = pd.to_numeric(df["publication_year"], errors="coerce")
 
         return df
+
+    # Analytics from requirements
 
     def plot_most_common_genres(self, books: list[Book]) -> None:
         df = self._books_to_df(books)
@@ -212,8 +212,8 @@ class BookAnalyticsService:
         df = self._books_to_df(books)
 
         yearly_counts = (
-            df.dropna(subset=["release_year"])
-            .groupby("release_year")
+            df.dropna(subset=["publication_year"])
+            .groupby("publication_year")
             .size()
         )
 

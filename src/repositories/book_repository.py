@@ -95,11 +95,12 @@ class BookRepository(BookRepositoryProtocol):
     def check_out_book(self, book_id: str) -> bool:
         book = self.find_book_by_id(book_id)
         book.check_out()
-        self.update_book(book_id, {"available":False})
-        return book.available == False
+        self.update_book(book_id, {"available":book.available})
+        return book.available
+
 
     def check_in_book(self, book_id: str) -> bool:
         book = self.find_book_by_id(book_id)
         book.check_in()
-        self.update_book(book_id, {"available":True})
-        return book.available == True
+        self.update_book(book_id, {"available":book.available})
+        return book.available

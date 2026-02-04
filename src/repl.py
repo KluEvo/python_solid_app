@@ -2,7 +2,7 @@ from src.services import generate_books
 from src.domain.book import Book
 from src.domain.checkout_record import CheckoutRecord
 from src.services.book_service import BookService
-from src.services.library_service import LibraryService
+from src.services.checkout_service import CheckoutService
 from src.services.book_analytics_service import BookAnalyticsService
 from src.repositories.book_repository import BookRepository
 from src.repositories.checkout_repository import CheckoutRepository
@@ -60,6 +60,16 @@ class BookREPL:
                 self.check_out_book()
             case 'checkoutHist':
                 self.get_check_out_history()
+            case 'pltCommonGenre':
+                self.plot_most_common_genres()
+            case 'pltHighRatedGenre':
+                self.plot_highest_rated_genres()
+            case 'pltPriceVSRating':
+                self.plot_price_vs_rating()
+            case 'pltBooksYear':
+                self.plot_books_by_year()
+            case 'pltCheckedOutVsAvailable':
+                self.plot_checked_out_vs_available()
             case 'getJoke':
                 self.get_joke()
             case 'help':
@@ -67,6 +77,7 @@ class BookREPL:
                 print("addBook, removeBook, updateBook, getAllRecords, findByName, getJoke, help, exit")
                 print("getAveragePrice, getTopBooks, getValueScores, medianPriceByGenre, genrePop2026")
                 print("priceSD, pricePercent, priceCorr, ratingHist")
+                print("pltCommonGenre, pltHighRatedGenre, pltPriceVSRating, pltBooksYear, pltCheckedOutVsAvailable")
                 print("checkIn, checkOut, checkoutHist")
             case _:
                 print("No valid command detected")
@@ -255,7 +266,7 @@ class BookREPL:
 
     def get_rating_histogram(self):
         try:
-            bins = input("How many bins? ")
+            bins = int(input("How many bins? "))
             books = self.book_svc.get_all_books()
             rating_hist = self.book_analytics_svc.rating_histogram(books, bins)
             print(f"Rating histograms: {rating_hist}")
@@ -270,12 +281,47 @@ class BookREPL:
         except Exception as e:
             print(f'An unexpected error has occurred in get_most_popular_genre_2026: {e}')
 
+    def plot_most_common_genres(self):
+        try:
+            books = self.book_svc.get_all_books()
+            self.book_analytics_svc.plot_most_common_genres(books)
+        except Exception as e:
+            print(f'An unexpected error has occurred in plot_most_common_genres: {e}')
+
+    def plot_highest_rated_genres(self):
+        try:
+            books = self.book_svc.get_all_books()
+            self.book_analytics_svc.plot_highest_rated_genres(books)
+        except Exception as e:
+            print(f'An unexpected error has occurred in plot_highest_rated_genres: {e}')
+
+    def plot_price_vs_rating(self):
+        try:
+            books = self.book_svc.get_all_books()
+            self.book_analytics_svc.plot_price_vs_rating(books)
+        except Exception as e:
+            print(f'An unexpected error has occurred in plot_price_vs_rating: {e}')
+
+    def plot_books_by_year(self):
+        try:
+            books = self.book_svc.get_all_books()
+            self.book_analytics_svc.plot_books_by_year(books)
+        except Exception as e:
+            print(f'An unexpected error has occurred in plot_books_by_year: {e}')
+
+    def plot_checked_out_vs_available(self):
+        try:
+            books = self.book_svc.get_all_books()
+            self.book_analytics_svc.plot_checked_out_vs_available(books)
+        except Exception as e:
+            print(f'An unexpected error has occurred in plot_checked_out_vs_available: {e}')
+
 if __name__ == '__main__':
-    # generate_books()
+    generate_books()
     book_repo = BookRepository('books.json')
     book_service = BookService(book_repo)
     book_analytics_service = BookAnalyticsService()
     checkout_repo = CheckoutRepository()
-    library_service = LibraryService(book_repo, checkout_repo)
+    library_service = CheckoutService(book_repo, checkout_repo)
     repl = BookREPL(book_service, library_service, book_analytics_service)
     repl.start()

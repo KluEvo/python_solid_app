@@ -1,2 +1,4 @@
 from .book_repository import BookRepository
 from .book_repository_protocol import BookRepositoryProtocol
+from .checkout_repository import CheckoutRepository
+from .checkout_repository_protocol import CheckoutRepositoryProtocol

@@ -1,6 +1,6 @@
 import pytest
 from src.domain.book import Book
-from src.services.library_service import LibraryService
+from src.services.checkout_service import CheckoutService
 import src.services.book_service as book_service
 from tests.mocks.mock_book_repository import MockBookRepo
 from tests.mocks.mock_checkout_repository import MockCheckoutRepository
@@ -15,7 +15,7 @@ def checkout_repo():
 
 @pytest.fixture
 def library_service(book_repo, checkout_repo):
-    return LibraryService(book_repo, checkout_repo)
+    return CheckoutService(book_repo, checkout_repo)
 
 @pytest.fixture
 def sample_book(book_repo):

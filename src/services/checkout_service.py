@@ -5,7 +5,7 @@ from src.repositories.book_repository_protocol import BookRepositoryProtocol
 from src.repositories.checkout_repository_protocol import CheckoutRepositoryProtocol
 from datetime import datetime
 
-class LibraryService:
+class CheckoutService:
     def __init__(
         self,
         book_repo: BookRepositoryProtocol,
