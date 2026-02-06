@@ -7,6 +7,7 @@ from src.services.book_analytics_service import BookAnalyticsService
 from src.repositories.book_repository import BookRepository
 from src.repositories.checkout_repository import CheckoutRepository
 import requests
+from pprint import pprint
 
 class BookREPL:
     def __init__(self, book_svc, lib_svc, book_analytics_svc):
@@ -175,7 +176,8 @@ class BookREPL:
 
             record = self.lib_svc.check_in_book(book_id)
 
-            print(f"{record}")
+            print(f"Book {record.book_id} successfully checked in  at:")
+            print(f"{record.checked_out_at}")
         except Exception as e:
             print(f'An unexpected error has occurred in check_in_book: {e}')
         
@@ -188,7 +190,8 @@ class BookREPL:
 
             record = self.lib_svc.check_out_book(book_id)
 
-            print(f"{record}")
+            print(f"Book {record.book_id} successfully checked out at:")
+            print(f"{record.checked_out_at}")
         except Exception as e:
             print(f'An unexpected error has occurred in check_out_book: {e}')
         
@@ -201,7 +204,8 @@ class BookREPL:
 
             records = self.lib_svc.get_checkout_history(book_id)
 
-            print(f"{records}")
+
+            pprint(records)
         except Exception as e:
             print(f'An unexpected error has occurred in check_in_book: {e}')
 
