@@ -34,14 +34,6 @@ class BookService:
         if not isinstance(updated_fields_dict, dict):
             raise TypeError('Expected a dict, got something else.')
         return self.repo.update_book(book_id, updated_fields_dict)
-    
 
     def find_book_by_id(self, book_id:str) -> str:
         return self.repo.find_book_by_id(book_id)
-    
-    # def remove_book(self, title:str, author:str) -> str:
-    #     return self.repo.remove_book(title, author)
-
-    # def update_book(self, title:str, author:str, updated_fields_dict:dict) -> str:
-    #     return self.repo.update_book(title, author, updated_fields_dict)
-

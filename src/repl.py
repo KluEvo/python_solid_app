@@ -26,8 +26,8 @@ class BookREPL:
             case 'exit':
                 self.running = False
                 print("goodbye!")
-            case 'getAllRecords':
-                self.get_all_records()
+            case 'getAllBooks':
+                self.get_all_books()
             case 'addBook':
                 self.add_book()
             case 'findByName':
@@ -74,7 +74,7 @@ class BookREPL:
                 self.get_joke()
             case 'help':
                 print("Commands:")
-                print("addBook, removeBook, updateBook, getAllRecords, findByName, getJoke, help, exit")
+                print("getAllBooks, addBook, removeBook, updateBook, findByName, getJoke, help, exit")
                 print("getAveragePrice, getTopBooks, getValueScores, medianPriceByGenre, genrePop2026")
                 print("priceSD, pricePercent, priceCorr, ratingHist")
                 print("pltCommonGenre, pltHighRatedGenre, pltPriceVSRating, pltBooksYear, pltCheckedOutVsAvailable")
@@ -100,7 +100,7 @@ class BookREPL:
         books = self.book_svc.find_book_by_name(query)
         print(books)
 
-    def get_all_records(self):
+    def get_all_books(self):
         books = self.book_svc.get_all_books()
         print(books)
 
@@ -317,7 +317,7 @@ class BookREPL:
             print(f'An unexpected error has occurred in plot_checked_out_vs_available: {e}')
 
 if __name__ == '__main__':
-    generate_books()
+    # generate_books()
     book_repo = BookRepository('books.json')
     book_service = BookService(book_repo)
     book_analytics_service = BookAnalyticsService()
