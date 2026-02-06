@@ -34,7 +34,6 @@ class BookRepository(BookRepositoryProtocol):
             raise Exception(f"No book with id {book_id}")
     
 
-    # to be turned into remove book
     def remove_book(self, book_id:str) -> str:
         
         books = self.get_all_books()
@@ -47,7 +46,6 @@ class BookRepository(BookRepositoryProtocol):
             json.dump([b.to_dict() for b in books], f, indent=2)
         return book.book_id
 
-    # to be turned into edit book
     def update_book(self, book_id:str, updated_fields_dict:dict) -> str:
         books = self.get_all_books()
 
